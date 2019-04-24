@@ -25,5 +25,4 @@ Liri is a Language Interpretation and Recognition Interface. Liri will be a comm
  <h4>node liri.js concert-this All the Small Things</h4>
  
  
-  
->>>>>>> ffd5b049b2c1b343c13d9edd149f8d87cd6748eb
+
