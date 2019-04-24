@@ -9,8 +9,7 @@ var request = require("request");
 var spotify = new Spotify(keys.spotify);
 
 var commands = process.argv[2]
-var search = process.argv.slice[3].join(",");
-
+var search = process.argv.slice(3).join(" ");
 
 function action() {
 
@@ -81,7 +80,14 @@ function spotifyThis() {
                 var musicQuery = data.tracks.items[i];
                 console.log("====================")
 
-                console.log("Artist: " + musicQuery.artist[0].name + "\nSong : " + musicQuery.name + "\nLink to Song: " + musicQuery.preview_url + "\nAlbum Name: " + musicQuery.album.name + "\n=====================");
+                console.log("Artist: " + musicQuery.artist[0].name +
+                    
+                    "\nSong : " + musicQuery.name +
+                    
+                    "\nLink to Song: " + musicQuery.preview_url +
+                    
+                    "\nAlbum Name: " + musicQuery.album.name +
+                    "\n=====================");
             }
         };
     });
@@ -98,20 +104,49 @@ function movieThis() {
 
     var urlQuery = "https://www.omdbapi.com/?i=" + movieQuery + "tt3896198&apikey=b62ff96d";
 
-    request(urlQuery, function (error, response, body) {
+    request(queryUrl, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
 
             var movieData = JSON.parse(body);
 
-            for (var i = 0; i < movieData.length && i < 5; i++ {
-                console.log("====================");
 
-                console.log("Movies Title: " + movieData.Title +
-                    "\nYear: " + movieData.release + "\nIMDB Rating " + movieData.imdbRating + "\nRotten Tomatoes Rating: " + movieData.TomatoeRating + "\nCountry: " + movieData.Country + "\nLanguage: " + movieData.Language + "\nPlot: " + movieData.Plot + "\nActors & Actresses: " + movieData.Actors + "\n=======================")
-            });
+            console.log("===============================");
+
+            console.log("Movie Title: " + movieData.Title +
+
+                "\nYear: " + movieData.released +
+
+                "\nIMDB Rating: " + movieData.imdbRating +
+
+                "\nRotten Tomatoes Rating: " + movieData.tomatoeRating +
+
+                "\nCountry: " + movieData.Country +
+
+                "\nLanguage: " + movieData.Language +
+
+                "\nPlot: " + movieData.Plot +
+
+                "\nActors & Actresses: " + movieData.Actors +
+                "\n===============================");
+
         };
     });
 }
 
+var doWhatItSays = function() {
+    fs.readFile("random.txt", "utf8", function (err, data) {
+        if (err) throw err;
+            var randomText = data.split(",");
+        
+        if (randomText.length == 2) {
+            ask(randomText[0], randomText[1]);
+        }
+        else if (randomText.length == 1) {
+            ask(randomText[0]);
+        }
+    });
+}
+
+ask (command, input);
 
