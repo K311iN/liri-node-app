@@ -1,15 +1,15 @@
 require("dotenv").config();
-var keys = require("./keys.js");
-var fs = require("fs");
-var spotify = require("node-spotify-api");
-var axios = require("axios");
-var moment = require("moment.js");
-var request = require("request");
+let keys = require("./keys.js");
+let fs = require("fs");
+let spotify = require("node-spotify-api");
+let axios = require("axios");
+let moment = require("moment.js");
+let request = require("request");
 
-var spotify = new Spotify(keys.spotify);
+let spotify = new Spotify(keys.spotify);
 
-var commands = process.argv[2]
-var search = process.argv.slice(3).join(" ");
+let commands = process.argv[2]
+let search = process.argv.slice(3).join(" ");
 
 function action() {
 
@@ -40,17 +40,17 @@ function action() {
 
 function concertThis() {
 
-    var bandQuery = process.argv.slice(3).join(",")
+    let bandQuery = process.argv.slice(3).join(",")
 
-    var urlQuery = "https://rest.bandsintown.com/artist/" + bandQuery + "/events?app_id=codingbootcamp";
+    let urlQuery = "https://rest.bandsintown.com/artist/" + bandQuery + "/events?app_id=codingbootcamp";
 
     request(urlQuery, function (error, response, body) {
 
         if (error && response.statusCode === 200) {
 
-            var concertData = JSON.parse(body);
+            let concertData = JSON.parse(body);
 
-            var momentDT = moment().format("L");
+            let momentDT = moment().format("L");
 
             console.log("==========================");
 
@@ -62,7 +62,7 @@ function concertThis() {
 
 function spotifyThis() {
 
-    var musicSearch = process.argv.slice(3).join(",");
+    let musicSearch = process.argv.slice(3).join(",");
 
     if (musicSearch === undefined || null) {
 
@@ -77,15 +77,15 @@ function spotifyThis() {
         else {
             for (i = 0; i < data.tracks.items.length && i < 5; i++) {
 
-                var musicQuery = data.tracks.items[i];
+                let musicQuery = data.tracks.items[i];
                 console.log("====================")
 
                 console.log("Artist: " + musicQuery.artist[0].name +
-                    
+
                     "\nSong : " + musicQuery.name +
-                    
+
                     "\nLink to Song: " + musicQuery.preview_url +
-                    
+
                     "\nAlbum Name: " + musicQuery.album.name +
                     "\n=====================");
             }
@@ -95,14 +95,14 @@ function spotifyThis() {
 
 function movieThis() {
 
-    var movieQuery = process.argv.slice(3).join(",");
+    let movieQuery = process.argv.slice(3).join(",");
 
     if (movieQuery === undefined || null) {
 
         movieQuery = "My. Nobody";
     }
 
-    var urlQuery = "https://www.omdbapi.com/?i=" + movieQuery + "tt3896198&apikey=b62ff96d";
+    let urlQuery = "https://www.omdbapi.com/?i=" + movieQuery + "tt3896198&apikey=b62ff96d";
 
     request(queryUrl, function (error, response, body) {
 
@@ -134,11 +134,11 @@ function movieThis() {
     });
 }
 
-var doWhatItSays = function() {
+var doWhatItSays = function () {
     fs.readFile("random.txt", "utf8", function (err, data) {
         if (err) throw err;
-            var randomText = data.split(",");
-        
+        let randomText = data.split(",");
+
         if (randomText.length == 2) {
             ask(randomText[0], randomText[1]);
         }
@@ -148,5 +148,5 @@ var doWhatItSays = function() {
     });
 }
 
-ask (command, input);
+ask(command, input);
 
